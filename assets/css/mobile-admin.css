@@ -1,0 +1,450 @@
+/* =========================================================================
+   AIGen — Mobile Admin
+   1-col stat cards, compact charts, table->card-list orders, list-row Me
+   ========================================================================= */
+
+.m-admin-body {
+    background-image: var(--gradient-mesh);
+}
+
+.m-admin-panels {
+    padding-bottom: var(--space-5);
+}
+
+.panel {
+    animation: panel-fade 280ms var(--m-ease-decel);
+}
+
+/* -------------------------------------------------------------------------
+   Stat stack (1-col vertical)
+   ------------------------------------------------------------------------- */
+.m-stat-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+}
+
+.m-stat-card {
+    position: relative;
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.m-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    opacity: 0.6;
+}
+
+.m-stat-card[data-tone="cyan"]::before    { background: var(--gradient-cyan); }
+.m-stat-card[data-tone="emerald"]::before { background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan)); }
+.m-stat-card[data-tone="fuchsia"]::before { background: linear-gradient(90deg, var(--accent-fuchsia), var(--accent-violet)); }
+
+.m-stat-label {
+    color: var(--text-tertiary);
+    font-size: 10px;
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+}
+
+.m-stat-value {
+    font-size: var(--m-fs-xl);
+    font-weight: var(--fw-black);
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: var(--space-2);
+}
+
+.m-stat-trend {
+    font-size: 11px;
+    font-weight: var(--fw-semibold);
+    color: var(--success);
+}
+
+.m-stat-trend.down { color: var(--danger); }
+
+/* -------------------------------------------------------------------------
+   Section divider
+   ------------------------------------------------------------------------- */
+.m-section-divider {
+    margin: var(--space-5) 0 var(--space-3);
+}
+
+.m-subsection-title {
+    font-size: var(--m-fs-md);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+}
+
+/* -------------------------------------------------------------------------
+   Activity list (table -> card list on mobile)
+   ------------------------------------------------------------------------- */
+.m-activity-list {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.m-activity-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border);
+    min-height: 56px;
+}
+
+.m-activity-row:last-child { border-bottom: none; }
+
+.m-activity-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-elevated-2);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: var(--fw-bold);
+    flex-shrink: 0;
+}
+
+.m-activity-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.m-activity-user {
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.m-activity-meta {
+    font-size: var(--m-fs-xs);
+    color: var(--text-tertiary);
+}
+
+.m-activity-status {
+    flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Bar chart (compact 140px tall)
+   ------------------------------------------------------------------------- */
+.m-bar-chart {
+    display: flex;
+    align-items: end;
+    gap: var(--space-2);
+    height: 140px;
+    padding-top: var(--space-3);
+}
+
+.m-bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+}
+
+.m-bar-track {
+    width: 100%;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-xs);
+    position: relative;
+    overflow: hidden;
+}
+
+.m-bar-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-xs);
+    height: var(--h, 0%);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+    animation: bar-grow 700ms var(--m-ease-decel);
+    transform-origin: bottom;
+}
+
+.m-bar-label {
+    color: var(--text-tertiary);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+}
+
+/* -------------------------------------------------------------------------
+   Donut chart compact
+   ------------------------------------------------------------------------- */
+.m-donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.m-donut-wrap .donut {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    transform: rotate(-90deg);
+}
+
+.donut-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.04);
+    stroke-width: 12;
+}
+
+.donut-arc {
+    fill: none;
+    stroke-width: 12;
+    stroke-linecap: round;
+}
+
+.donut-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--m-fs-xs);
+}
+
+.donut-legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.donut-legend-label {
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.donut-legend-value {
+    color: var(--text-primary);
+    font-weight: var(--fw-semibold);
+}
+
+/* -------------------------------------------------------------------------
+   Top creators list
+   ------------------------------------------------------------------------- */
+.m-creators-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.m-creator-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.m-creator-row:last-child { border-bottom: none; }
+
+.m-creator-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: var(--fw-bold);
+    flex-shrink: 0;
+}
+
+.m-creator-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.m-creator-name {
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+}
+
+.m-creator-handle {
+    font-size: var(--m-fs-xs);
+    color: var(--text-tertiary);
+}
+
+.m-creator-stats {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.m-creator-revenue {
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+.m-creator-gens {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+/* -------------------------------------------------------------------------
+   Order filter row
+   ------------------------------------------------------------------------- */
+.m-filter-row {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding: var(--space-1) 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.m-filter-row::-webkit-scrollbar { display: none; }
+
+.m-filter-row .pill {
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    padding: 6px 14px;
+    height: 32px;
+}
+
+.m-filter-row .pill.is-active {
+    background: rgba(139, 92, 246, 0.16);
+    border-color: rgba(139, 92, 246, 0.4);
+    color: var(--accent-violet);
+}
+
+/* -------------------------------------------------------------------------
+   Orders list (table -> cards)
+   ------------------------------------------------------------------------- */
+.m-orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.m-order-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    gap: var(--space-3);
+}
+
+.m-order-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.m-order-id {
+    font-family: var(--font-mono);
+    font-size: var(--m-fs-xs);
+    color: var(--text-tertiary);
+    margin-bottom: 2px;
+}
+
+.m-order-customer {
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.m-order-meta {
+    font-size: var(--m-fs-xs);
+    color: var(--text-tertiary);
+}
+
+.m-order-right {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.m-order-amount {
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    margin-bottom: 4px;
+}
+
+/* -------------------------------------------------------------------------
+   Me panel
+   ------------------------------------------------------------------------- */
+.m-me-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+}
+
+.m-me-name {
+    font-size: var(--m-fs-md);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+}
+
+.m-me-email {
+    font-size: var(--m-fs-xs);
+    color: var(--text-tertiary);
+    margin-top: 2px;
+}
+
+.m-logout-btn {
+    color: var(--danger);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.m-logout-btn:hover { background: rgba(239, 68, 68, 0.08); }
+
+/* Status pills (re-used from desktop) */
+.status-paid     { background: rgba(34, 197, 94, 0.12); color: var(--success); }
+.status-pending  { background: rgba(245, 158, 11, 0.12); color: var(--warning); }
+.status-refunded { background: rgba(239, 68, 68, 0.12); color: var(--danger); }
+.status-failed   { background: rgba(110, 110, 128, 0.16); color: var(--text-secondary); }

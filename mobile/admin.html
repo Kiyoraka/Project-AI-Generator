@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0A0A0F" />
+    <title>Admin — AIGen</title>
+
+    <script src="../assets/js/device-route.js"></script>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-base.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-shell.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-admin.css" />
+</head>
+<body class="m-admin-body has-topbar has-tabbar">
+
+    <!-- Top bar -->
+    <header class="m-topbar">
+        <a href="../index.html" class="m-topbar-brand">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <defs>
+                        <linearGradient id="m-admin-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#8B5CF6"/>
+                            <stop offset="100%" stop-color="#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M14 2 L26 9 L26 19 L14 26 L2 19 L2 9 Z" fill="url(#m-admin-grad)" />
+                    <path d="M14 8 L20 11.5 L20 16.5 L14 20 L8 16.5 L8 11.5 Z" fill="#0A0A0F" />
+                </svg>
+            </span>
+            <span class="brand-name">AIGen</span>
+        </a>
+        <div class="m-topbar-actions">
+            <button type="button" class="m-icon-btn" aria-label="Notifications">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 3a5 5 0 015 5v4l1 2H4l1-2V8a5 5 0 015-5zM8 16a2 2 0 004 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="icon-dot" aria-hidden="true"></span>
+            </button>
+            <span class="m-avatar" id="user-avatar" style="width: 36px; height: 36px; font-size: 13px;">AU</span>
+        </div>
+    </header>
+
+    <!-- Page title row -->
+    <div class="m-page-title-row">
+        <h1 class="m-page-title" id="page-title">Main</h1>
+        <p class="m-page-sub" id="page-sub">Operations overview</p>
+    </div>
+
+    <!-- Panels -->
+    <main class="m-admin-panels m-container">
+
+        <!-- Main panel -->
+        <section class="panel" data-panel="main">
+            <div class="m-stat-stack" id="stat-stack">
+                <!-- Populated by mobile-admin.js -->
+            </div>
+
+            <div class="m-section-divider">
+                <h2 class="m-subsection-title">Recent activity</h2>
+            </div>
+
+            <div class="m-activity-list" id="activity-list">
+                <!-- Populated by mobile-admin.js -->
+            </div>
+        </section>
+
+        <!-- Analyze panel -->
+        <section class="panel" data-panel="analysis" hidden>
+            <div class="card">
+                <h3 class="card-title">Revenue (7 days)</h3>
+                <div class="m-bar-chart" id="bar-chart"></div>
+            </div>
+
+            <div class="card" style="margin-top: var(--space-4);">
+                <h3 class="card-title">Generation mix</h3>
+                <div class="m-donut-wrap">
+                    <svg class="donut" viewBox="0 0 120 120" id="donut-chart" aria-hidden="true"></svg>
+                    <div class="donut-legend" id="donut-legend"></div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: var(--space-4);">
+                <h3 class="card-title">Top creators</h3>
+                <div class="m-creators-list" id="creators-list"></div>
+            </div>
+        </section>
+
+        <!-- Orders panel -->
+        <section class="panel" data-panel="order" hidden>
+            <div class="m-filter-row scroll-x">
+                <span class="pill pill-violet is-active" data-filter="all">All</span>
+                <span class="pill" data-filter="paid">Paid</span>
+                <span class="pill" data-filter="pending">Pending</span>
+                <span class="pill" data-filter="refunded">Refunded</span>
+            </div>
+
+            <div class="m-orders-list" id="order-list">
+                <!-- Populated by mobile-admin.js -->
+            </div>
+        </section>
+
+        <!-- Me panel -->
+        <section class="panel" data-panel="me" hidden>
+            <div class="m-me-head">
+                <span class="m-avatar" id="me-avatar">AU</span>
+                <div>
+                    <p class="m-me-name" id="me-name">Admin User</p>
+                    <p class="m-me-email" id="me-email">admin@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="m-list">
+                <button type="button" class="m-list-row">
+                    <svg class="m-list-row-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    <span class="m-list-row-label">Settings</span>
+                    <span class="m-list-row-chevron">›</span>
+                </button>
+                <button type="button" class="m-list-row">
+                    <svg class="m-list-row-icon" viewBox="0 0 20 20" fill="none"><path d="M3 4h14v12H3z" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h6M7 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    <span class="m-list-row-label">Audit log</span>
+                    <span class="m-list-row-chevron">›</span>
+                </button>
+                <button type="button" class="m-list-row">
+                    <svg class="m-list-row-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M10 6v4l2.5 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    <span class="m-list-row-label">API & webhooks</span>
+                    <span class="m-list-row-chevron">›</span>
+                </button>
+            </div>
+
+            <button type="button" class="m-switch-view" onclick="window.AIGenView.switchToDesktop()" style="margin-top: var(--space-4);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6M12 17v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <span>View desktop site</span>
+                <span class="m-switch-view-arrow">→</span>
+            </button>
+
+            <button type="button" class="btn btn-ghost btn-block btn-lg m-logout-btn" id="logout-btn" style="margin-top: var(--space-4);">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 2H3v12h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Sign out
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Bottom tab bar (4 tabs - admin) -->
+    <nav class="m-tabbar tabbar-4" aria-label="Admin navigation">
+        <button type="button" class="m-tab is-active" data-target="main">
+            <svg class="m-tab-icon" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/>
+                <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/>
+                <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/>
+                <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+            <span>Main</span>
+        </button>
+        <button type="button" class="m-tab" data-target="analysis">
+            <svg class="m-tab-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M3 21V3M3 21h18M7 17V11M11 17V7M15 17V14M19 17V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span>Analyze</span>
+        </button>
+        <button type="button" class="m-tab" data-target="order">
+            <svg class="m-tab-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span>Orders</span>
+        </button>
+        <button type="button" class="m-tab" data-target="me">
+            <svg class="m-tab-icon" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M4 21a8 8 0 0116 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span>Me</span>
+        </button>
+    </nav>
+
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/mobile-admin.js"></script>
+</body>
+</html>
