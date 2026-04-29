@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — AIGen</title>
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+    <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body class="dashboard-body">
+
+    <!-- ===================================================================
+         Sidebar
+         =================================================================== -->
+    <aside class="sidebar" aria-label="Admin navigation">
+        <a href="index.html" class="sidebar-brand">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+                    <defs>
+                        <linearGradient id="admin-brand-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#8B5CF6"/>
+                            <stop offset="100%" stop-color="#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M14 2 L26 9 L26 19 L14 26 L2 19 L2 9 Z" fill="url(#admin-brand-grad)" />
+                    <path d="M14 8 L20 11.5 L20 16.5 L14 20 L8 16.5 L8 11.5 Z" fill="#0A0A0F" />
+                </svg>
+            </span>
+            <span class="brand-name">AIGen</span>
+        </a>
+
+        <p class="sidebar-section-label">Workspace</p>
+        <nav class="sidebar-nav">
+            <button class="nav-btn is-active" data-target="main" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <rect x="3" y="3" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="11" y="3" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="3" y="11" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="11" y="11" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+                Main
+            </button>
+            <button class="nav-btn" data-target="analysis" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M3 17V3M3 17H17M7 13V9M11 13V6M15 13V11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                Analysis
+            </button>
+            <button class="nav-btn" data-target="order" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M4 6h12M4 10h12M4 14h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                Order
+            </button>
+            <button class="nav-btn" data-target="setting" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                Setting
+            </button>
+        </nav>
+
+        <div class="sidebar-foot">
+            <div class="user-chip">
+                <span class="user-chip-avatar" id="user-avatar">AU</span>
+                <div class="user-chip-info">
+                    <p class="user-chip-name" id="user-name">Admin User</p>
+                    <p class="user-chip-meta" id="user-email">admin@gmail.com</p>
+                </div>
+            </div>
+            <button type="button" class="logout-btn" id="logout-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 2H3v12h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Sign out
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===================================================================
+         Main
+         =================================================================== -->
+    <div class="main">
+
+        <!-- Topbar -->
+        <header class="dash-topbar">
+            <div class="dash-topbar-title">
+                <h1 class="page-title" id="page-title">Main</h1>
+                <span class="page-sub" id="page-sub">Operations overview</span>
+            </div>
+            <div class="dash-topbar-actions">
+                <button type="button" class="icon-btn" aria-label="Notifications">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 3a5 5 0 015 5v4l1 2H4l1-2V8a5 5 0 015-5zM8 16a2 2 0 004 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="icon-dot" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="icon-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M14 14l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Panels -->
+        <main class="panels">
+
+            <!-- ============= Main Panel ============= -->
+            <section class="panel" data-panel="main">
+                <header class="panel-head">
+                    <h2 class="panel-title">Operations Overview</h2>
+                    <p class="panel-sub">Live snapshot of platform activity for the last 24 hours.</p>
+                </header>
+
+                <div class="stat-grid" id="stat-grid">
+                    <!-- Populated by admin.js -->
+                </div>
+
+                <div class="card" style="margin-top: var(--space-5);">
+                    <div class="card-head">
+                        <div>
+                            <h3 class="card-title">Recent activity</h3>
+                            <p class="card-sub">The last twelve actions across all users.</p>
+                        </div>
+                        <a href="#" class="card-action">View all</a>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Resource</th>
+                                    <th>When</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activity-rows">
+                                <!-- Populated by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============= Analysis Panel ============= -->
+            <section class="panel" data-panel="analysis" hidden>
+                <header class="panel-head">
+                    <h2 class="panel-title">Analysis</h2>
+                    <p class="panel-sub">Generation throughput, revenue trends, and customer mix.</p>
+                </header>
+
+                <div class="analytics-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>
+                                <h3 class="card-title">Revenue (last 7 days)</h3>
+                                <p class="card-sub">USD, daily totals</p>
+                            </div>
+                            <span class="pill pill-violet">+12.4%</span>
+                        </div>
+                        <div class="bar-chart" id="bar-chart">
+                            <!-- Populated by admin.js -->
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <div>
+                                <h3 class="card-title">Generation mix</h3>
+                                <p class="card-sub">By output type, last 24h</p>
+                            </div>
+                        </div>
+                        <div class="donut-wrap">
+                            <svg class="donut" viewBox="0 0 120 120" id="donut-chart" aria-hidden="true">
+                                <!-- Populated by admin.js -->
+                            </svg>
+                            <div class="donut-legend" id="donut-legend">
+                                <!-- Populated by admin.js -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card analytics-wide">
+                        <div class="card-head">
+                            <div>
+                                <h3 class="card-title">Top creators</h3>
+                                <p class="card-sub">By generation volume this month</p>
+                            </div>
+                        </div>
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Creator</th>
+                                    <th>Plan</th>
+                                    <th>Generations</th>
+                                    <th>Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody id="creators-rows">
+                                <!-- Populated by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============= Order Panel ============= -->
+            <section class="panel" data-panel="order" hidden>
+                <header class="panel-head">
+                    <h2 class="panel-title">Orders</h2>
+                    <p class="panel-sub">Subscription orders and one-time credit purchases.</p>
+                </header>
+
+                <div class="card">
+                    <div class="card-head">
+                        <div class="filter-row">
+                            <span class="pill pill-violet is-active" data-filter="all">All</span>
+                            <span class="pill" data-filter="paid">Paid</span>
+                            <span class="pill" data-filter="pending">Pending</span>
+                            <span class="pill" data-filter="refunded">Refunded</span>
+                        </div>
+                        <button type="button" class="btn btn-ghost btn-sm">Export CSV</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Plan</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-rows">
+                                <!-- Populated by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============= Setting Panel ============= -->
+            <section class="panel" data-panel="setting" hidden>
+                <header class="panel-head">
+                    <h2 class="panel-title">Settings</h2>
+                    <p class="panel-sub">Platform configuration and developer keys.</p>
+                </header>
+
+                <div class="tabs" role="tablist">
+                    <button type="button" class="tab-btn is-active" data-tab="general" role="tab">General</button>
+                    <button type="button" class="tab-btn" data-tab="branding" role="tab">Branding</button>
+                    <button type="button" class="tab-btn" data-tab="api" role="tab">API & Webhooks</button>
+                </div>
+
+                <!-- General -->
+                <div class="tab-panel is-active" data-tab-panel="general">
+                    <div class="card">
+                        <div class="form-grid">
+                            <div class="form-row span-2">
+                                <label for="set-site-name">Platform name</label>
+                                <input type="text" id="set-site-name" value="AIGen Studio" />
+                            </div>
+                            <div class="form-row">
+                                <label for="set-support-email">Support email</label>
+                                <input type="email" id="set-support-email" value="support@aigen.example" />
+                            </div>
+                            <div class="form-row">
+                                <label for="set-region">Default region</label>
+                                <select id="set-region">
+                                    <option>Asia-Pacific (Singapore)</option>
+                                    <option>North America (US East)</option>
+                                    <option>Europe (Frankfurt)</option>
+                                </select>
+                            </div>
+                            <div class="form-row span-2">
+                                <label for="set-tagline">Tagline</label>
+                                <input type="text" id="set-tagline" value="Generate stunning videos and images with AI." />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-ghost">Discard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branding -->
+                <div class="tab-panel" data-tab-panel="branding">
+                    <div class="card">
+                        <div class="form-grid">
+                            <div class="form-row">
+                                <label for="set-primary-color">Primary color</label>
+                                <input type="text" id="set-primary-color" value="#8B5CF6" />
+                            </div>
+                            <div class="form-row">
+                                <label for="set-accent-color">Accent color</label>
+                                <input type="text" id="set-accent-color" value="#EC4899" />
+                            </div>
+                            <div class="form-row span-2">
+                                <label for="set-logo">Logo URL</label>
+                                <input type="text" id="set-logo" placeholder="https://cdn.example.com/logo.svg" />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-ghost">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API -->
+                <div class="tab-panel" data-tab-panel="api">
+                    <div class="card">
+                        <div class="form-grid">
+                            <div class="form-row span-2">
+                                <label for="set-api-key">Public API key</label>
+                                <input type="text" id="set-api-key" value="pk_live_aigen_4f9c2a8b7d6e5f3a1b9c0d8e2f4a6b8c" readonly />
+                            </div>
+                            <div class="form-row span-2">
+                                <label for="set-webhook">Webhook URL</label>
+                                <input type="url" id="set-webhook" placeholder="https://your-app.com/webhooks/aigen" />
+                            </div>
+                            <div class="form-row">
+                                <label for="set-rate-limit">Rate limit (rpm)</label>
+                                <input type="number" id="set-rate-limit" value="120" />
+                            </div>
+                            <div class="form-row">
+                                <label for="set-timeout">Timeout (ms)</label>
+                                <input type="number" id="set-timeout" value="30000" />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary">Rotate key</button>
+                            <button type="button" class="btn btn-ghost">Test webhook</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
