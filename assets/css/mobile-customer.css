@@ -1,0 +1,417 @@
+/* =========================================================================
+   AIGen — Mobile Customer
+   Home (shortcuts + continue + recent), Inspire, Library, Me, Create sheet
+   ========================================================================= */
+
+.m-customer-body {
+    background-image: var(--gradient-mesh);
+}
+
+.m-customer-panels {
+    padding-bottom: var(--space-5);
+}
+
+.panel {
+    animation: panel-fade 280ms var(--m-ease-decel);
+}
+
+/* -------------------------------------------------------------------------
+   Home - shortcuts row
+   ------------------------------------------------------------------------- */
+.m-shortcut-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.m-shortcut-card {
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    text-align: left;
+    min-height: 96px;
+    transition: background var(--m-motion-tap) var(--ease-out);
+}
+
+.m-shortcut-card:active {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.m-shortcut-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.m-shortcut-icon[data-tone="violet"] { background: rgba(139, 92, 246, 0.15); color: var(--accent-violet); }
+.m-shortcut-icon[data-tone="cyan"]   { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); }
+
+.m-shortcut-label {
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+}
+
+/* -------------------------------------------------------------------------
+   Continue card (Home hero)
+   ------------------------------------------------------------------------- */
+.m-continue-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    aspect-ratio: 16/9;
+    background: var(--bg-elevated);
+}
+
+.m-continue-thumb {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.4)),
+                url('https://picsum.photos/seed/aigen-continue/640/360') center/cover;
+}
+
+.m-continue-meta {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: var(--space-5) var(--space-4) var(--space-4);
+    background: linear-gradient(to top, rgba(10, 10, 15, 0.95) 30%, rgba(10, 10, 15, 0));
+    color: #fff;
+}
+
+.m-continue-eyebrow {
+    color: var(--accent-cyan);
+    font-size: 11px;
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.m-continue-title {
+    font-size: var(--m-fs-md);
+    font-weight: var(--fw-bold);
+    margin-bottom: var(--space-3);
+}
+
+/* -------------------------------------------------------------------------
+   Output grid (Home recent, Inspire, Library)
+   ------------------------------------------------------------------------- */
+.m-output-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+}
+
+.m-output-card {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    aspect-ratio: 4/5;
+    opacity: 0;
+    animation: fade-rise 500ms var(--ease-out) forwards;
+    transition: transform var(--m-motion-tap) var(--m-ease-spring);
+}
+
+.m-output-card:active {
+    transform: scale(0.97);
+}
+
+.m-output-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.m-output-card[data-type="video"]::before {
+    content: 'VIDEO';
+    color: var(--accent-fuchsia);
+}
+
+.m-output-card[data-type="image"]::before {
+    content: 'IMAGE';
+    color: var(--accent-cyan);
+}
+
+.m-output-card::before {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px 8px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 9px;
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.06em;
+}
+
+.m-output-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(10, 10, 15, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    pointer-events: none;
+}
+
+.m-output-duration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    padding: 2px 6px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    font-weight: var(--fw-semibold);
+    border-radius: var(--radius-xs);
+}
+
+.m-output-loading {
+    background: linear-gradient(
+        90deg,
+        var(--bg-elevated) 0%,
+        rgba(139, 92, 246, 0.08) 50%,
+        var(--bg-elevated) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite, fade-rise 400ms var(--ease-out);
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    color: var(--text-tertiary);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+}
+
+.m-output-loading-spinner {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border-strong);
+    border-top-color: var(--accent-violet);
+    border-radius: 50%;
+    animation: spin 800ms linear infinite;
+}
+
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* -------------------------------------------------------------------------
+   Library filter row
+   ------------------------------------------------------------------------- */
+.m-filter-row {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding: var(--space-1) 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.m-filter-row::-webkit-scrollbar { display: none; }
+
+.m-filter-row .pill {
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    padding: 6px 14px;
+    height: 32px;
+}
+
+.m-filter-row .pill.is-active {
+    background: rgba(139, 92, 246, 0.16);
+    border-color: rgba(139, 92, 246, 0.4);
+    color: var(--accent-violet);
+}
+
+.m-subsection-title {
+    font-size: var(--m-fs-md);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+}
+
+/* -------------------------------------------------------------------------
+   Me panel (customer)
+   ------------------------------------------------------------------------- */
+.m-me-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+}
+
+.m-me-name {
+    font-size: var(--m-fs-md);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+}
+
+.m-me-email {
+    font-size: var(--m-fs-xs);
+    color: var(--text-tertiary);
+    margin-top: 2px;
+}
+
+.m-plan-card {
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong);
+    background:
+        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.18) 0%, transparent 50%),
+        rgba(255, 255, 255, 0.03);
+    margin-bottom: var(--space-4);
+}
+
+.m-plan-head {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+}
+
+.m-plan-label {
+    color: var(--text-tertiary);
+    font-size: 11px;
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.m-plan-name {
+    font-size: var(--m-fs-2xl);
+    font-weight: var(--fw-black);
+    letter-spacing: -0.025em;
+}
+
+.m-plan-stat {
+    margin-bottom: var(--space-4);
+}
+
+.m-plan-stat-label {
+    color: var(--text-tertiary);
+    font-size: var(--m-fs-xs);
+    margin-bottom: var(--space-2);
+}
+
+.m-plan-stat-value {
+    color: var(--text-primary);
+    font-size: var(--m-fs-lg);
+    font-weight: var(--fw-bold);
+    margin-bottom: var(--space-2);
+}
+
+.m-plan-stat-meta {
+    color: var(--text-tertiary);
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-normal);
+}
+
+.m-plan-stat-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.m-plan-stat-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.m-logout-btn {
+    color: var(--danger);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* -------------------------------------------------------------------------
+   Create sheet body
+   ------------------------------------------------------------------------- */
+.m-type-segment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 4px;
+    margin-bottom: var(--space-4);
+}
+
+.m-type-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 10px 12px;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-semibold);
+    background: transparent;
+    border: none;
+    transition: background var(--m-motion-tap) var(--ease-out),
+                color var(--m-motion-tap) var(--ease-out);
+}
+
+.m-type-btn.is-active {
+    background: var(--gradient-primary);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+}
+
+.m-create-cost {
+    color: var(--text-secondary);
+    font-size: var(--m-fs-sm);
+    margin: 0 0 var(--space-3) 0;
+    text-align: center;
+}
+
+.m-create-cost strong {
+    color: var(--accent-violet);
+    font-family: var(--font-mono);
+    font-weight: var(--fw-bold);
+}
