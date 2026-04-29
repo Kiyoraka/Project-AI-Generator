@@ -43,6 +43,8 @@ Then open `http://localhost:8080` in your browser.
 
 ## Pages
 
+### Desktop
+
 | Path | Purpose |
 |------|---------|
 | `index.html` | Public landing — hero, feature grid, pricing tiers, infinite-scroll gallery |
@@ -50,27 +52,64 @@ Then open `http://localhost:8080` in your browser.
 | `admin.html` | Admin dashboard — Main / Analysis / Order / Setting panels (sidebar-switched, no reload) |
 | `customer.html` | Customer dashboard — Video Generator / Image Generator / Setting panels |
 
+### Mobile (`/mobile/`)
+
+| Path | Purpose |
+|------|---------|
+| `mobile/index.html` | Mobile landing — vertical hero + scroll-snap pricing carousel + 2-col masonry gallery |
+| `mobile/login.html` | Mobile auth — full-screen card with orb-lit gradient background + tap demo chips |
+| `mobile/admin.html` | Mobile admin — 4-tab bar (Main / Analyze / Orders / Me), table-as-cards, compact charts |
+| `mobile/customer.html` | Mobile customer — 5-tab bar with center Create FAB + bottom-sheet generator modal |
+
+The mobile pages use **Design 1 — Bottom Tab Bar with Center FAB** (Pika / Instagram / TikTok native register). They are NOT responsive variants of the desktop pages — they are separate files with their own HTML/CSS/JS for cleaner architecture and a more native-app feel.
+
+## Device Routing
+
+`assets/js/device-route.js` is loaded synchronously in the `<head>` of every page (desktop and mobile). On load:
+
+1. **Auto-detect** — if no override is set and the device is mobile (`max-width: 768px` OR mobile UA string), redirect from desktop route to `/mobile/<page>`
+2. **Override wins** — if the user explicitly chose a view (via the switch link), `localStorage.aigen.viewOverride` is set to `mobile` or `desktop` and the auto-detect is skipped. Choice persists across sessions.
+3. **Switch links**:
+   - Desktop pages: "View on mobile →" link in footer / sidebar
+   - Mobile pages: "View desktop site →" button in the Me tab / footer
+4. **Public API** — `window.AIGenView.switchToMobile()`, `switchToDesktop()`, `clearOverride()`, `getOverride()` for programmatic switching
+
 ## Project Structure
 
 ```
 Project AI Generator/
-├── index.html              ← Landing
-├── login.html              ← Auth gate
-├── admin.html              ← Admin shell
-├── customer.html           ← Customer shell
+├── index.html                  ← Desktop landing
+├── login.html                  ← Desktop auth gate
+├── admin.html                  ← Desktop admin shell
+├── customer.html               ← Desktop customer shell
+├── mobile/
+│   ├── index.html              ← Mobile landing
+│   ├── login.html              ← Mobile auth
+│   ├── admin.html              ← Mobile admin (4-tab bar)
+│   └── customer.html           ← Mobile customer (5-tab bar + FAB)
 ├── assets/
 │   ├── css/
-│   │   ├── base.css        ← Design tokens, reset, utilities
-│   │   ├── landing.css     ← Landing-only styles
-│   │   ├── auth.css        ← Login glass card
-│   │   ├── dashboard.css   ← Shared sidebar/topbar/panel chrome
-│   │   ├── admin.css       ← Admin panel content
-│   │   └── customer.css    ← Customer panel content
+│   │   ├── base.css            ← Design tokens, reset, utilities
+│   │   ├── landing.css         ← Desktop landing styles
+│   │   ├── auth.css            ← Desktop login glass card
+│   │   ├── dashboard.css       ← Desktop sidebar/topbar/panel chrome
+│   │   ├── admin.css           ← Desktop admin panel content
+│   │   ├── customer.css        ← Desktop customer panel content
+│   │   ├── mobile-base.css     ← Mobile tokens, safe-area insets, native typography
+│   │   ├── mobile-shell.css    ← Mobile top bar + bottom tab bar + sheet modal
+│   │   ├── mobile-landing.css  ← Mobile landing
+│   │   ├── mobile-auth.css     ← Mobile auth
+│   │   ├── mobile-admin.css    ← Mobile admin
+│   │   └── mobile-customer.css ← Mobile customer
 │   └── js/
-│       ├── auth.js         ← Hardcoded creds + role guards
-│       ├── landing.js      ← Infinity scroll for gallery
-│       ├── admin.js        ← Admin panel switching + mock data
-│       └── customer.js     ← Customer panel switching + generator flow
+│       ├── auth.js             ← Shared by desktop + mobile (hardcoded creds, role guards)
+│       ├── device-route.js     ← Auto-redirect with localStorage override (loaded by all pages)
+│       ├── landing.js          ← Desktop landing
+│       ├── admin.js            ← Desktop admin
+│       ├── customer.js         ← Desktop customer
+│       ├── mobile-landing.js   ← Mobile landing
+│       ├── mobile-admin.js     ← Mobile admin (tab nav + mobile renderers)
+│       └── mobile-customer.js  ← Mobile customer (5-tab + Create FAB sheet)
 └── README.md
 ```
 
