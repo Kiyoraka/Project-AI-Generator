@@ -1,0 +1,387 @@
+/* =========================================================================
+   AIGen — Mobile Shell
+   Shared chrome for mobile dashboard pages: top bar, bottom tab bar
+   (4-tab and 5-tab variants with center FAB), sheet modal.
+   Loaded after base.css and mobile-base.css.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   Top Bar (sticky, glass)
+   ------------------------------------------------------------------------- */
+.m-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--mobile-topbar-h) + var(--safe-top));
+    padding-top: var(--safe-top);
+    padding-inline: var(--space-4);
+    z-index: var(--z-sticky);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10, 10, 15, 0.78);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid var(--border);
+}
+
+.m-topbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-primary);
+    font-weight: var(--fw-bold);
+}
+
+.m-topbar-brand .brand-mark {
+    width: 28px;
+    height: 28px;
+}
+
+.m-topbar-brand .brand-name {
+    font-size: var(--m-fs-md);
+}
+
+.m-topbar-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.m-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    position: relative;
+}
+
+.m-icon-btn .icon-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-fuchsia);
+    border: 2px solid var(--bg-base);
+}
+
+.m-credit-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    background: rgba(139, 92, 246, 0.14);
+    border: 1px solid rgba(139, 92, 246, 0.32);
+    color: var(--accent-violet);
+    font-size: var(--m-fs-xs);
+    font-weight: var(--fw-bold);
+}
+
+.m-credit-chip strong {
+    color: var(--text-primary);
+}
+
+.m-page-title-row {
+    padding: var(--space-3) var(--space-4) var(--space-2);
+}
+
+.m-page-title {
+    font-size: var(--m-fs-xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: -0.025em;
+    margin-bottom: 2px;
+}
+
+.m-page-sub {
+    color: var(--text-secondary);
+    font-size: var(--m-fs-sm);
+}
+
+/* -------------------------------------------------------------------------
+   Bottom Tab Bar
+   ------------------------------------------------------------------------- */
+.m-tabbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--mobile-tabbar-h) + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
+    z-index: var(--z-sticky);
+    display: grid;
+    background: rgba(15, 15, 22, 0.92);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border-top: 1px solid var(--border);
+}
+
+.m-tabbar.tabbar-4 { grid-template-columns: repeat(4, 1fr); }
+.m-tabbar.tabbar-5 { grid-template-columns: 1fr 1fr 1.4fr 1fr 1fr; }
+
+.m-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 11px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.02em;
+    transition: color var(--m-motion-tap) var(--ease-out);
+    position: relative;
+    padding: 8px 4px;
+}
+
+.m-tab:active { transform: none; }
+
+.m-tab .m-tab-icon {
+    width: 24px;
+    height: 24px;
+    color: currentColor;
+}
+
+.m-tab.is-active {
+    color: var(--accent-violet);
+}
+
+.m-tab.is-active::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+}
+
+/* Center FAB tab (5-tab variant only) */
+.m-tab-fab {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.m-tab-fab .fab {
+    width: var(--mobile-fab-size);
+    height: var(--mobile-fab-size);
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.45),
+                0 0 32px rgba(236, 72, 153, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    margin-top: -28px;
+    transition: transform var(--m-motion-tap) var(--m-ease-spring),
+                box-shadow var(--m-motion-tap) var(--ease-out);
+    border: 3px solid var(--bg-base);
+}
+
+.m-tab-fab .fab:active {
+    transform: scale(0.92);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.5);
+}
+
+.m-tab-fab-label {
+    margin-top: 2px;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    font-weight: var(--fw-semibold);
+}
+
+/* -------------------------------------------------------------------------
+   Sheet Modal
+   ------------------------------------------------------------------------- */
+.m-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: var(--z-modal);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--m-motion-sheet) var(--ease-out);
+}
+
+.m-sheet-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.m-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 92vh;
+    z-index: calc(var(--z-modal) + 1);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-strong);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.45);
+    transform: translateY(100%);
+    transition: transform var(--m-motion-sheet) var(--m-ease-decel);
+    padding-bottom: var(--safe-bottom);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.m-sheet.is-open {
+    transform: translateY(0);
+}
+
+.m-sheet-handle {
+    align-self: center;
+    width: 40px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--border-strong);
+    margin: 10px 0 4px;
+    flex-shrink: 0;
+}
+
+.m-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4) var(--space-2);
+    flex-shrink: 0;
+}
+
+.m-sheet-title {
+    font-size: var(--m-fs-lg);
+    font-weight: var(--fw-bold);
+}
+
+.m-sheet-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.m-sheet-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-3) var(--space-4) var(--space-4);
+    flex: 1;
+}
+
+.m-sheet-foot {
+    padding: var(--space-3) var(--space-4) var(--space-4);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Switch View Link (mobile -> desktop / desktop -> mobile)
+   ------------------------------------------------------------------------- */
+.m-switch-view {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-secondary);
+    font-size: var(--m-fs-sm);
+    font-weight: var(--fw-medium);
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.m-switch-view-arrow {
+    margin-left: auto;
+    color: var(--text-tertiary);
+}
+
+/* -------------------------------------------------------------------------
+   Avatar (used in user chip on Me tab)
+   ------------------------------------------------------------------------- */
+.m-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--fw-bold);
+    font-size: var(--m-fs-lg);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------------
+   List rows (used in settings, Me tab)
+   ------------------------------------------------------------------------- */
+.m-list {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.m-list-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-primary);
+    text-align: left;
+    background: transparent;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+    min-height: var(--mobile-touch-min);
+    font-size: var(--m-fs-sm);
+}
+
+.m-list-row:last-child { border-bottom: none; }
+
+.m-list-row-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--accent-violet);
+    flex-shrink: 0;
+}
+
+.m-list-row-label {
+    flex: 1;
+}
+
+.m-list-row-value {
+    color: var(--text-tertiary);
+    font-size: var(--m-fs-xs);
+}
+
+.m-list-row-chevron {
+    color: var(--text-tertiary);
+}
