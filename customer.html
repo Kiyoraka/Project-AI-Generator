@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio — AIGen</title>
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+    <link rel="stylesheet" href="assets/css/customer.css" />
+</head>
+<body class="dashboard-body">
+
+    <!-- ===================================================================
+         Sidebar
+         =================================================================== -->
+    <aside class="sidebar" aria-label="Studio navigation">
+        <a href="index.html" class="sidebar-brand">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+                    <defs>
+                        <linearGradient id="cust-brand-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#8B5CF6"/>
+                            <stop offset="100%" stop-color="#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M14 2 L26 9 L26 19 L14 26 L2 19 L2 9 Z" fill="url(#cust-brand-grad)" />
+                    <path d="M14 8 L20 11.5 L20 16.5 L14 20 L8 16.5 L8 11.5 Z" fill="#0A0A0F" />
+                </svg>
+            </span>
+            <span class="brand-name">AIGen</span>
+        </a>
+
+        <p class="sidebar-section-label">Generate</p>
+        <nav class="sidebar-nav">
+            <button class="nav-btn is-active" data-target="video" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M5 4l11 6-11 6V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                Video Generator
+            </button>
+            <button class="nav-btn" data-target="image" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                    <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+                    <path d="M17 13l-4-4L5 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Image Generator
+            </button>
+            <button class="nav-btn" data-target="setting" type="button">
+                <svg class="nav-btn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                Setting
+            </button>
+        </nav>
+
+        <div class="sidebar-foot">
+            <div class="user-chip">
+                <span class="user-chip-avatar" id="user-avatar">AC</span>
+                <div class="user-chip-info">
+                    <p class="user-chip-name" id="user-name">Alice Chen</p>
+                    <p class="user-chip-meta" id="user-plan">Pro plan</p>
+                </div>
+            </div>
+            <button type="button" class="logout-btn" id="logout-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 2H3v12h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Sign out
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===================================================================
+         Main
+         =================================================================== -->
+    <div class="main">
+
+        <!-- Topbar -->
+        <header class="dash-topbar">
+            <div class="dash-topbar-title">
+                <h1 class="page-title" id="page-title">Video Generator</h1>
+                <span class="page-sub" id="page-sub">Cinematic clips from prompt</span>
+            </div>
+            <div class="dash-topbar-actions">
+                <span class="credit-chip" aria-label="Credits remaining">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 1l2 4.5 5 .5-3.5 3.5L12.5 15 8 12.5 3.5 15l1-5.5L1 6l5-.5L8 1z" fill="currentColor"/>
+                    </svg>
+                    <span class="credit-chip-amount" id="credit-amount">240</span>
+                    <span>Credits</span>
+                </span>
+                <button type="button" class="icon-btn" aria-label="History">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 5v5l3 2M3 10a7 7 0 107-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Panels -->
+        <main class="panels">
+
+            <!-- ============= Video Generator ============= -->
+            <section class="panel" data-panel="video">
+                <header class="panel-head">
+                    <h2 class="panel-title">Video Generator</h2>
+                    <p class="panel-sub">Turn a prompt into a cinematic clip in seconds.</p>
+                </header>
+
+                <div class="generator-card card">
+                    <form class="generator-form" id="video-form">
+                        <div class="field">
+                            <label for="video-prompt">Prompt</label>
+                            <textarea
+                                id="video-prompt"
+                                rows="3"
+                                placeholder="A neon city street at night, cinematic 4K, slow dolly forward, rain reflections..."
+                            >A neon city street at night, cinematic 4K, slow dolly forward, rain reflections.</textarea>
+                        </div>
+                        <div class="generator-controls">
+                            <div class="field">
+                                <label for="video-style">Style</label>
+                                <select id="video-style">
+                                    <option>Cinematic</option>
+                                    <option>Anime</option>
+                                    <option>Photoreal</option>
+                                    <option>Stop-motion</option>
+                                    <option>Watercolor</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="video-duration">Duration</label>
+                                <select id="video-duration">
+                                    <option value="3">3 seconds</option>
+                                    <option value="5" selected>5 seconds</option>
+                                    <option value="8">8 seconds</option>
+                                    <option value="12">12 seconds</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="video-aspect">Aspect ratio</label>
+                                <select id="video-aspect">
+                                    <option>16:9 (landscape)</option>
+                                    <option>9:16 (portrait)</option>
+                                    <option>1:1 (square)</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="video-quality">Quality</label>
+                                <select id="video-quality">
+                                    <option>1080p</option>
+                                    <option>4K</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="generator-foot">
+                            <p class="generator-cost">Cost: <strong>10 credits</strong></p>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Generate video
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="output-section">
+                    <h3 class="output-head">Recent generations</h3>
+                    <div class="output-grid" id="video-output">
+                        <!-- Populated by customer.js (seeded + on Generate) -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============= Image Generator ============= -->
+            <section class="panel" data-panel="image" hidden>
+                <header class="panel-head">
+                    <h2 class="panel-title">Image Generator</h2>
+                    <p class="panel-sub">Photoreal, painterly, or vector — at 4K.</p>
+                </header>
+
+                <div class="generator-card card">
+                    <form class="generator-form" id="image-form">
+                        <div class="field">
+                            <label for="image-prompt">Prompt</label>
+                            <textarea
+                                id="image-prompt"
+                                rows="3"
+                                placeholder="A studio portrait of a woman with violet light-painting trails, sharp focus, 85mm..."
+                            >A studio portrait of a woman with violet light-painting trails, sharp focus, 85mm.</textarea>
+                        </div>
+                        <div class="generator-controls">
+                            <div class="field">
+                                <label for="image-style">Style</label>
+                                <select id="image-style">
+                                    <option>Photoreal</option>
+                                    <option>Editorial</option>
+                                    <option>Watercolor</option>
+                                    <option>Anime</option>
+                                    <option>Vector</option>
+                                    <option>3D Render</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="image-aspect">Aspect ratio</label>
+                                <select id="image-aspect">
+                                    <option>3:4 (portrait)</option>
+                                    <option>1:1 (square)</option>
+                                    <option>16:9 (landscape)</option>
+                                    <option>9:16 (story)</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="image-batch">Batch size</label>
+                                <select id="image-batch">
+                                    <option value="1">1 image</option>
+                                    <option value="2" selected>2 images</option>
+                                    <option value="4">4 images</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="image-quality">Quality</label>
+                                <select id="image-quality">
+                                    <option>Standard</option>
+                                    <option selected>4K</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="generator-foot">
+                            <p class="generator-cost">Cost: <strong>10 credits</strong></p>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Generate image
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="output-section">
+                    <h3 class="output-head">Recent generations</h3>
+                    <div class="output-grid" id="image-output">
+                        <!-- Populated by customer.js -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============= Setting ============= -->
+            <section class="panel" data-panel="setting" hidden>
+                <header class="panel-head">
+                    <h2 class="panel-title">Settings</h2>
+                    <p class="panel-sub">Profile, plan, and billing.</p>
+                </header>
+
+                <div class="tabs" role="tablist">
+                    <button type="button" class="tab-btn is-active" data-tab="profile" role="tab">Profile</button>
+                    <button type="button" class="tab-btn" data-tab="plan" role="tab">Plan</button>
+                    <button type="button" class="tab-btn" data-tab="billing" role="tab">Billing</button>
+                </div>
+
+                <!-- Profile -->
+                <div class="tab-panel is-active" data-tab-panel="profile">
+                    <div class="card">
+                        <div class="form-grid">
+                            <div class="form-row">
+                                <label for="cust-name">Display name</label>
+                                <input type="text" id="cust-name" value="Alice Chen" />
+                            </div>
+                            <div class="form-row">
+                                <label for="cust-handle">Handle</label>
+                                <input type="text" id="cust-handle" value="@aria.makes" />
+                            </div>
+                            <div class="form-row span-2">
+                                <label for="cust-email">Email</label>
+                                <input type="email" id="cust-email" value="customer@gmail.com" />
+                            </div>
+                            <div class="form-row span-2">
+                                <label for="cust-bio">Bio</label>
+                                <textarea id="cust-bio" rows="3">Visual artist exploring AI as a sketch partner. Currently into neon noir and stop-motion.</textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary">Save profile</button>
+                            <button type="button" class="btn btn-ghost">Discard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plan -->
+                <div class="tab-panel" data-tab-panel="plan">
+                    <div class="card current-plan-card">
+                        <div class="current-plan-head">
+                            <div>
+                                <p class="current-plan-label">Current plan</p>
+                                <h3 class="current-plan-name gradient-text">Pro</h3>
+                                <p class="current-plan-renew">Renews May 28, 2026</p>
+                            </div>
+                            <span class="pill pill-violet">Active</span>
+                        </div>
+                        <div class="plan-stats">
+                            <div class="plan-stat">
+                                <p class="plan-stat-label">Credits used</p>
+                                <p class="plan-stat-value">260 <span class="plan-stat-meta">of 500</span></p>
+                                <div class="plan-stat-bar"><div class="plan-stat-fill" style="width: 52%;"></div></div>
+                            </div>
+                            <div class="plan-stat">
+                                <p class="plan-stat-label">Generations this month</p>
+                                <p class="plan-stat-value">26</p>
+                            </div>
+                            <div class="plan-stat">
+                                <p class="plan-stat-label">Storage used</p>
+                                <p class="plan-stat-value">2.4 GB <span class="plan-stat-meta">of 100 GB</span></p>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary">Upgrade to Studio</button>
+                            <button type="button" class="btn btn-ghost">Manage plan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing -->
+                <div class="tab-panel" data-tab-panel="billing">
+                    <div class="card">
+                        <div class="payment-method">
+                            <div class="payment-method-icon">VISA</div>
+                            <div class="payment-method-info">
+                                <p class="payment-method-line">Visa ending in 4242</p>
+                                <p class="payment-method-sub">Expires 09/28 — billing email customer@gmail.com</p>
+                            </div>
+                            <button type="button" class="btn btn-ghost btn-sm">Update</button>
+                        </div>
+
+                        <h4 class="invoice-title">Recent invoices</h4>
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Date</th>
+                                    <th>Plan</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="order-id">INV-9821</span></td>
+                                    <td>Apr 28, 2026</td>
+                                    <td>Pro monthly</td>
+                                    <td class="order-amount">$29.00</td>
+                                    <td><span class="pill status-paid">Paid</span></td>
+                                    <td><a href="#" class="card-action">PDF</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="order-id">INV-9412</span></td>
+                                    <td>Mar 28, 2026</td>
+                                    <td>Pro monthly</td>
+                                    <td class="order-amount">$29.00</td>
+                                    <td><span class="pill status-paid">Paid</span></td>
+                                    <td><a href="#" class="card-action">PDF</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="order-id">INV-9011</span></td>
+                                    <td>Feb 28, 2026</td>
+                                    <td>Pro monthly</td>
+                                    <td class="order-amount">$29.00</td>
+                                    <td><span class="pill status-paid">Paid</span></td>
+                                    <td><a href="#" class="card-action">PDF</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/customer.js"></script>
+</body>
+</html>
