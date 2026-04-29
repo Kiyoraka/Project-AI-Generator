@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0A0A0F" />
+    <title>Sign in — AIGen</title>
+
+    <script src="../assets/js/device-route.js"></script>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-base.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-shell.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-auth.css" />
+</head>
+<body class="m-auth-body">
+
+    <div class="m-auth-orb m-auth-orb-1" aria-hidden="true"></div>
+    <div class="m-auth-orb m-auth-orb-2" aria-hidden="true"></div>
+
+    <a href="index.html" class="m-auth-back" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
+    <main class="m-auth-main m-container">
+
+        <a href="index.html" class="brand m-auth-brand">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+                    <defs>
+                        <linearGradient id="m-auth-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#8B5CF6"/>
+                            <stop offset="100%" stop-color="#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M14 2 L26 9 L26 19 L14 26 L2 19 L2 9 Z" fill="url(#m-auth-grad)" />
+                    <path d="M14 8 L20 11.5 L20 16.5 L14 20 L8 16.5 L8 11.5 Z" fill="#0A0A0F" />
+                </svg>
+            </span>
+            <span class="brand-name">AIGen</span>
+        </a>
+
+        <header class="m-auth-head">
+            <h1 class="m-auth-title">Welcome back</h1>
+            <p class="m-auth-sub">Sign in to continue generating.</p>
+        </header>
+
+        <form class="m-auth-form" id="login-form" novalidate>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required placeholder="you@example.com" />
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="Enter your password" />
+            </div>
+
+            <p class="auth-error m-auth-error" id="auth-error" role="alert" hidden></p>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block auth-submit m-auth-submit">
+                <span class="auth-submit-label">Sign in</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </form>
+
+        <div class="m-auth-foot">
+            <p class="m-auth-hint">
+                <span class="m-auth-hint-label">DEMO ACCOUNTS</span>
+            </p>
+            <div class="m-auth-demo-list">
+                <button type="button" class="auth-demo m-auth-demo" data-fill="admin">
+                    <strong>admin@gmail.com</strong>
+                    <span>Admin Dashboard</span>
+                </button>
+                <button type="button" class="auth-demo m-auth-demo" data-fill="customer">
+                    <strong>customer@gmail.com</strong>
+                    <span>Customer Dashboard</span>
+                </button>
+            </div>
+            <p class="m-auth-foot-note">Both use password <code>admin123</code></p>
+        </div>
+
+        <button type="button" class="m-switch-view m-auth-switch" onclick="window.AIGenView.switchToDesktop()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6M12 17v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>View desktop site</span>
+            <span class="m-switch-view-arrow">→</span>
+        </button>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
+</body>
+</html>
