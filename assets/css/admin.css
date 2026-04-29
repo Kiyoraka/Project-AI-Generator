@@ -1,0 +1,362 @@
+/* =========================================================================
+   AIGen — Admin Stylesheet
+   Stat cards, bar/donut charts, orders filter row, settings tabs
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   Stat Grid (Main panel)
+   ------------------------------------------------------------------------- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+}
+
+.stat-card {
+    position: relative;
+    padding: var(--space-5);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    opacity: 0.6;
+}
+
+.stat-card[data-tone="cyan"]::before {
+    background: var(--gradient-cyan);
+}
+
+.stat-card[data-tone="emerald"]::before {
+    background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+}
+
+.stat-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+}
+
+.stat-card-label {
+    color: var(--text-tertiary);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.stat-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--accent-violet);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card[data-tone="cyan"] .stat-card-icon {
+    background: rgba(34, 211, 238, 0.12);
+    color: var(--accent-cyan);
+}
+
+.stat-card[data-tone="emerald"] .stat-card-icon {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent-emerald);
+}
+
+.stat-card[data-tone="fuchsia"] .stat-card-icon {
+    background: rgba(236, 72, 153, 0.12);
+    color: var(--accent-fuchsia);
+}
+
+.stat-card-value {
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-black);
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-2);
+    line-height: 1;
+}
+
+.stat-card-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+}
+
+.stat-card-trend.up    { color: var(--success); }
+.stat-card-trend.down  { color: var(--danger); }
+.stat-card-trend.flat  { color: var(--text-tertiary); }
+
+.stat-card-trend-arrow {
+    font-size: 12px;
+}
+
+.stat-card-meta {
+    color: var(--text-tertiary);
+    font-size: var(--fs-xs);
+    margin-left: var(--space-2);
+}
+
+/* -------------------------------------------------------------------------
+   Recent activity table
+   ------------------------------------------------------------------------- */
+.table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+}
+
+.card-action {
+    color: var(--accent-violet);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    transition: color var(--motion-base) var(--ease-out);
+}
+
+.card-action:hover {
+    color: var(--accent-fuchsia);
+}
+
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.user-cell-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-elevated-2);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: var(--fw-bold);
+    flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Analysis Panel
+   ------------------------------------------------------------------------- */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+}
+
+.analytics-wide {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 1023px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Bar chart */
+.bar-chart {
+    display: flex;
+    align-items: end;
+    gap: var(--space-3);
+    height: 220px;
+    padding-top: var(--space-4);
+}
+
+.bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    height: 100%;
+    min-width: 0;
+}
+
+.bar-track {
+    width: 100%;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-xs);
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-xs);
+    height: var(--h, 0%);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    animation: bar-grow 800ms var(--ease-out);
+    transform-origin: bottom;
+}
+
+@keyframes bar-grow {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+}
+
+.bar-label {
+    color: var(--text-tertiary);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+}
+
+.bar-value {
+    color: var(--text-primary);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+}
+
+/* Donut chart */
+.donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-3) 0;
+}
+
+.donut {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    transform: rotate(-90deg);
+}
+
+.donut-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.04);
+    stroke-width: 12;
+}
+
+.donut-arc {
+    fill: none;
+    stroke-width: 12;
+    stroke-linecap: round;
+    transition: stroke-dasharray 800ms var(--ease-out);
+}
+
+.donut-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+}
+
+.donut-legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.donut-legend-label {
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.donut-legend-value {
+    color: var(--text-primary);
+    font-weight: var(--fw-semibold);
+}
+
+@media (max-width: 480px) {
+    .donut-wrap {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* -------------------------------------------------------------------------
+   Order panel
+   ------------------------------------------------------------------------- */
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.filter-row .pill {
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    transition: background var(--motion-base) var(--ease-out),
+                color var(--motion-base) var(--ease-out),
+                border-color var(--motion-base) var(--ease-out);
+}
+
+.filter-row .pill:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+}
+
+.filter-row .pill.is-active {
+    background: rgba(139, 92, 246, 0.16);
+    border-color: rgba(139, 92, 246, 0.4);
+    color: var(--accent-violet);
+}
+
+.order-id {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+}
+
+.order-amount {
+    font-family: var(--font-mono);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+}
+
+/* -------------------------------------------------------------------------
+   Status pills (re-used in tables)
+   ------------------------------------------------------------------------- */
+.status-paid     { background: rgba(34, 197, 94, 0.12); color: var(--success); }
+.status-pending  { background: rgba(245, 158, 11, 0.12); color: var(--warning); }
+.status-refunded { background: rgba(239, 68, 68, 0.12); color: var(--danger); }
+.status-failed   { background: rgba(110, 110, 128, 0.16); color: var(--text-secondary); }
+
+/* -------------------------------------------------------------------------
+   Settings tabs body
+   ------------------------------------------------------------------------- */
+.tab-panel .card {
+    margin-top: var(--space-2);
+}
+
+input[readonly] {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-tertiary);
+    cursor: default;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+}
