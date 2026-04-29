@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="AIGen — Generate stunning videos and images with AI. Cinematic quality in seconds." />
     <title>AIGen — AI Video and Image Generation</title>
+    <script src="assets/js/device-route.js"></script>
     <link rel="stylesheet" href="assets/css/base.css" />
     <link rel="stylesheet" href="assets/css/landing.css" />
 </head>
@@ -264,7 +265,11 @@
                     <a href="#">Cookies</a>
                 </div>
             </nav>
-            <p class="footer-copy">&copy; 2026 AIGen. All rights reserved.</p>
+            <p class="footer-copy">
+                &copy; 2026 AIGen. All rights reserved.
+                <span style="margin: 0 var(--space-3); color: var(--text-tertiary);">·</span>
+                <a href="#" onclick="event.preventDefault(); window.AIGenView.switchToMobile();" style="color: var(--accent-violet);">View on mobile →</a>
+            </p>
         </div>
     </footer>
 

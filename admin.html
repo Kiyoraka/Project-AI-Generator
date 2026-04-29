@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard — AIGen</title>
+    <script src="assets/js/device-route.js"></script>
     <link rel="stylesheet" href="assets/css/base.css" />
     <link rel="stylesheet" href="assets/css/dashboard.css" />
     <link rel="stylesheet" href="assets/css/admin.css" />
@@ -75,6 +76,13 @@
                     <path d="M6 2H3v12h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 Sign out
+            </button>
+            <button type="button" class="logout-btn" onclick="window.AIGenView.switchToMobile();" style="color: var(--text-tertiary); border-color: var(--border);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M11 18h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                View on mobile
             </button>
         </div>
     </aside>

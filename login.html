@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Sign in to AIGen" />
     <title>Sign in — AIGen</title>
+    <script src="assets/js/device-route.js"></script>
     <link rel="stylesheet" href="assets/css/base.css" />
     <link rel="stylesheet" href="assets/css/auth.css" />
 </head>
@@ -99,6 +100,9 @@
                     </li>
                 </ul>
                 <p class="auth-foot-note">Both accounts use password <code>admin123</code></p>
+                <p class="auth-foot-note" style="margin-top: var(--space-3);">
+                    <a href="#" onclick="event.preventDefault(); window.AIGenView.switchToMobile();" style="color: var(--accent-violet);">View on mobile →</a>
+                </p>
             </footer>
         </section>
     </main>
